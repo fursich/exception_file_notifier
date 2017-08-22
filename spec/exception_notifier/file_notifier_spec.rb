@@ -22,11 +22,6 @@ RSpec.describe ExceptionNotifier::FileNotifier do
   let(:shift_age) { 'daily' }
   let(:shift_size) { nil }
 
-
-  it "has a version number" do
-    expect(ExceptionFileNotifier::VERSION).not_to be nil
-  end
-
   describe '#initialize' do
     let(:logger_options) {
       notifier.instance_eval {@logger_options}
@@ -132,8 +127,8 @@ RSpec.describe ExceptionNotifier::FileNotifier do
       it 'does not provide controller and action name' do
         expect(notifier).to receive(:append_log).with(
           hash_including(
-            controller: '[BACKGROUND]',
-            action: '[BACKGROUND]'
+            controller: '[NO CONTROLLER]',
+            action: '[NO CONTROLLER]'
           )
         ).once
         notifier.call(ExceptionTestHelper::DummyException.new(backtrace), env: env)

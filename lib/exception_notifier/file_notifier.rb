@@ -81,8 +81,8 @@ module ExceptionNotifier
 
       exception_details = {
         exception:         @exception.class,
-        controller:        @kontroller&.controller_name || '[BACKGROUND]',
-        action:            @kontroller&.action_name || '[BACKGROUND]',
+        controller:        @kontroller.present? ? @kontroller.controller_name : '[BACKGROUND]',
+        action:            @kontroller.present? ? @kontroller.action_name : '[BACKGROUND]',
         exception_message: @exception.message,
 
         timestamp:         @timestamp,
@@ -115,6 +115,12 @@ module ExceptionNotifier
     end
 
     class MissingController
+      def controller_name
+        '[NO CONTROLLER]'
+      end
+      def action_name
+        '[NO CONTROLLER]'
+      end
       def method_missing(*args, &block)
       end
     end
