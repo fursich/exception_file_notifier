@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'exception_file_notifier/version'
+require 'exception_notifier/exception_file_notifier/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "exception_file_notifier"
-  spec.version       = ExceptionFileNotifier::VERSION
+  spec.version       = ::ExceptionNotifier::ExceptionFileNotifier::VERSION
   spec.authors       = ["Koji Onishi"]
   spec.email         = ["fursich0@gmail.com"]
 
