@@ -1,8 +1,12 @@
 # ExceptionFileNotifier
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/exception_file_notifier`. To experiment with that code, run `bin/console` for an interactive prompt.
+[![Gem Version](https://badge.fury.io/rb/exception_file_notifier.svg)](https://badge.fury.io/rb/exception_file_notifier)
+[![Travis](https://api.travis-ci.org/fursich/exception_file_notifier.png)](http://travis-ci.org/fursich/exception_file_notifier)
+[![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENSE)
 
-TODO: Delete this and the text above, and describe your gem
+**Exception File Notifier** is a custom notifier for [Exception Notification](https://github.com/smartinez87/exception_notification), that records notifications onto a log file when errors occur in a Rack/Rails application.
+
+All the error logs are converted into JSON format. This would be useful typically when you wish to monitor an app with monitoring tools - e.g. Kibana + ElasticSearch + Fluentd, or anything alike.
 
 ## Installation
 
@@ -22,7 +26,53 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Set proper configs in *config/initializers/exception_notification.rb*
+
+To get started, use the simplest settings:
+
+```ruby:config/initializers/exception_notification.rb
+ExceptionNotification.configure do |config|
+
+  config.add_notifier :file, {
+      filename:  "#{Rails.root}/log/exceptions.log"
+  }
+```
+
+That works in all the environment (including test).
+
+You could also customize settings like so:
+
+```ruby:config/initializers/exception_notification.rb
+ExceptionNotification.configure do |config|
+
+# disable all the notifiers in certain environment
+  config.ignore_if do |exception, options|
+    Rails.env.test?
+  end
+
+  config.add_notifier :file, {
+      filename:  "#{Rails.root}/log/exceptions_#{Rails.env}.log",  # generate different log files depending on environments
+      shift_age: 'daily'     # use shift_age/shift_size options to rotate log files
+  }
+```
+
+You could also pass as many original values as you like, which will be evaluated JSON-ified at the time when an exception occurs. For detailed setting you may wish to consult with the Exception Notification [original readme](https://github.com/smartinez87/exception_notification).
+
+#### available options:
+
+- filename:   specify the log file (preferablly with its absolute path)
+
+- shift_age:  option for log file rotation: directly passed to Ruby Logger
+
+- shift_size: option for log file rotation: directly passed to Ruby Logger
+
+(for the latter options see also: https://docs.ruby-lang.org/ja/latest/method/Logger/s/new.html)
+
+#### Note
+
+Due to [a bug](https://bugs.ruby-lang.org/issues/12948) with ruby Logger discovered in ruby 2.2 - 2.3, it might happen that you cannot rotate logs by using shift_age. (for those who come up with any workaround for this, please let us know / PR are welcomed)
+
+Meanwhile you could cope with either 1) upgrading your ruby version upto 2.4, or 2) rotate logs by size, not date
 
 ## Development
 
@@ -34,6 +84,9 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/fursich/exception_file_notifier.
 
+## Special Thanks To
+
+The folks at Jiraffe Inc., notably @katsurak for great advices and supports.
 
 ## License
 
