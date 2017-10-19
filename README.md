@@ -86,7 +86,7 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/fursic
 
 ## Special Thanks To
 
-The folks at Jiraffe Inc., notably @katsurak for great advices and supports.
+All the folks who have given supports, especially @motchang and @katsurak for great advises and reviews.
 
 ## License
 
