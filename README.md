@@ -1,4 +1,4 @@
-# ExceptionFileNotifier
+# Exception File Notifier
 
 [![Gem Version](https://badge.fury.io/rb/exception_file_notifier.svg)](https://badge.fury.io/rb/exception_file_notifier)
 [![Travis](https://api.travis-ci.org/fursich/exception_file_notifier.png)](http://travis-ci.org/fursich/exception_file_notifier)
