@@ -1,5 +1,5 @@
 module ExceptionNotifier
   module ExceptionFileNotifier
-    VERSION = "0.0.7"
+    VERSION = "0.1.0".freeze
   end
 end
