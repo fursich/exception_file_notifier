@@ -145,7 +145,7 @@ module ExceptionNotifier
     end
 
     def encode_to_utf8(str)
-      quick_sanitization(str).encode(::Encoding.find('UTF-8'), {invalid: :replace, undef: :replace, replace: '?'})
+      quick_sanitization(str).encode(::Encoding.find('UTF-8'), invalid: :replace, undef: :replace, replace: '?')
     end
 
     def quick_sanitization(str) # stringify any random objects in a safe (and convenient) manner
